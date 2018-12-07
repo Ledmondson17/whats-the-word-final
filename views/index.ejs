@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Fontdiner+Swanky" rel="stylesheet">
+    <link rel="stylesheet" rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script type="text/javascript">
+        navigator.geolocation.getCurrentPosition(function(position) {
+        console.log(position.coords.latitude, position.coords.longitude);});
+    </script>
+
+    <title></title>
+  </head>
+  <body>
+    <header>
+      <label id="menu" for="toggle">&#9776;</label>
+    <section class="search-box">
+      <input class="search-txt" type="text" placeholder="search" name="" value="">
+      <a class="search-btn" href="#"><i class="fas fa-search"></i></a>
+    </section>
+    </header>
+    <section class="main">
+      <section class="mainContainer">
+        <h1>What's The Word?</h1>
+        <section class="mainDisplay">
+          <section class="calendar">
+            <table>
+              <thead>
+                <tr class="weekdays">
+                  <td>S</td>
+                  <td>M</td>
+                  <td>T</td>
+                  <td>W</td>
+                  <td>T</td>
+                  <td>F</td>
+                  <td>S</td>
+                </tr>
+              </thead>
+              <tr class="days">
+                <td><a href="#">1</a></td>
+                <td><a href="#">2</a></td>
+                <td><a href="#">3</a></td>
+                <td><a href="#">4</a></td>
+                <td><a href="#">5</a></td>
+                <td><a href="#">6</a></td>
+                <td><a href="#">7</a></td>
+              </tr>
+              <tr class="days">
+                <td><a href="#">8</a></td>
+                <td><a href="#">9</a></td>
+                <td><a href="#">10</a></td>
+                <td><a href="#">11</a></td>
+                <td><a href="#">12</a></td>
+                <td><a href="#">13</a></td>
+                <td><a href="#">14</a></td>
+              </tr>
+              <tr class="days">
+                <td><a href="#">15</a></td>
+                <td><a href="#">16</a></td>
+                <td><a href="#">17</a></td>
+                <td><a href="#">18</a></td>
+                <td><a href="#">19</a></td>
+                <td><a href="#">20</a></td>
+                <td><a href="#">21</a></td>
+              </tr>
+              <tr class="days">
+                <td><a href="#">22</a></td>
+                <td><a href="#">23</a></td>
+                <td><a href="#">24</a></td>
+                <td><a href="#">25</a></td>
+                <td><a href="#">26</a></td>
+                <td><a href="#">27</a></td>
+                <td><a href="#">28</a></td>
+              </tr>
+              <tr class="days">
+                <td><a href="#">29</a></td>
+                <td><a href="#">30</a></td>
+                <td><a href="#">31</a></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </table>
+          </section>
+        </section>
+        <h3>Today's Events</h3>
+      </section>
+      <section class="mainContainer2">
+      <ul>
+        <li><span class="category">Roxy:</span><span class="value"> All White Affair</span></li>
+        <li><span class="category">Bijou:</span><span class="value"> 90's theme</span></li>
+        <li><span class="category">Venu:</span><span class="value"> Poseidon's heirs</span></li>
+        <li><span class="category">Storyville:</span><span class="value"> Hennything is possible</span></li>
+        <li><span class="category">Icon:</span><span class="value"> All Black Affair</span></li>
+        <li><span class="category">KGB: beginning /end:</span><span class="value"> Sheck Wes release party </span></li>
+        <li><span class="category">Good Life:</span><span class="value"> 4/20 Jump Off</span></li>
+      </ul>
+      </section>
+    </section>
+    <script type="text/javascript"src="js/main.js"></script>
+  </body>
+</html>

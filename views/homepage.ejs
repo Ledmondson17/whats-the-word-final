@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="homepage.css">
+  <link href="https://fonts.googleapis.com/css?family=Fontdiner+Swanky" rel="stylesheet">
+  <link rel="stylesheet" rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <script type="text/javascript">
+    // navigator.geolocation.getCurrentPosition(function(position) {
+    //   var url = '/?lat=' + position.coords.latitude + '&lon=' + position.coords.longitude
+    //   console.log("location url", url);
+    //   window.location.replace(url);
+    // console.log(position.coords.latitude, position.coords.longitude);
+    // });
+    // console.log("outside geolocation");
+  </script>
+
+  <title></title>
+</head>
+<body>
+  <header>
+    <label id="menu" for="toggle">&#9776;</label>
+    <section class="search-box">
+      <input class="search-txt" type="text" placeholder="search" name="" value="">
+      <a class="search-btn" href="#"><i class="fas fa-search"></i></a>
+    </section>
+  </header>
+  <section class="main">
+    <section class="mainContainer">
+      <script>
+
+        function initMap() {
+          var myLatLng = {lat: <%= lat %>, lng: <%= lon %> };
+
+          var map = new google.maps.Map(document.getElementsByClassName('mainContainer')[0], {
+            zoom: 17,
+            center: myLatLng
+          });
+
+          var marker = new google.maps.Marker({
+            position: myLatLng,
+            map: map,
+            title: 'Hello World!'
+          });
+
+          <% for( let i = 0; i < specificVenues.length; i++  ){%>
+            var marker<%=i%> = new google.maps.Marker({
+            position: {lat: <%= specificVenues[i].location.lat %>, lng: <%= specificVenues[i].location.lng %> },
+            map: map,
+            title: '<%= specificVenues[i].name %>',
+          });
+        <%  } %>
+        }
+      </script>
+      <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCes7Giv798r-pM373poz9fIIMmCEaTxrM&callback=initMap">
+      </script>
+
+      <h3>Today's Events</h3>
+    </section>
+    <section class="mainContainer2">
+      <ul>
+        <% for (var i = 0; i < Math.min(specificVenues.length, 10); i++) { %>
+          <a href="/venue?id=<%= specificVenues[i].id %>"><li><%= specificVenues[i].name %></li></a>
+        <% } %>
+      </ul>
+    </section>
+  </section>
+  <script type="text/javascript"src="main.js"></script>
+</body>
+</html>

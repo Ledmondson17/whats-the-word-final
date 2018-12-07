@@ -1,0 +1,84 @@
+*{
+  box-sizing: border-box;
+}
+html,body{
+  margin: 0;
+  padding: 0;
+  font-size: 15px;
+  background-color: black;
+  color: #af8300;
+  font-family: 'Fontdiner Swanky', cursive;
+}
+
+@media only screen and (max-width: 768px){
+  section{
+    width: 100%;
+  }
+  li{
+    list-style: none;
+    font-size: .80em;
+  }
+  ul{
+    padding: 0;
+    margin: 0;
+  }
+  .top{
+    height: 406px;
+  }
+  .Interactions{
+    border: 3px solid red;
+    font-size: 1.3em;
+    margin: 5px 0 5px 0;
+  }
+  .topLeft{
+    float: left;
+    height: 80%;
+    width: 40%;
+    text-align: center;
+  }
+  .topRight{
+    float: left;
+    height: 80%;
+    width: 60%;
+  }
+  .topBottom{
+    width: 100%;
+    overflow: auto;
+    height: 20%;
+    font-size: .9em;
+  }
+  .bottom{
+    height: 406px;
+  }
+  .center{
+    text-align: center;
+    font-size: 2em;
+  }
+  .indiv{
+    width: 100%;
+    height: 33.3333%;
+    text-align: center;
+    font-size: 2em;
+  }
+  .followers{
+    width: 100%;
+    height: 33.3333%;
+  }
+  .favorites{
+    width: 100%;
+    height: 33.3333%;
+  }
+  .pic{
+    margin-top: 90px;
+  }
+  .value{
+    color: white;
+  }
+  .following,.follows-me{
+    width: 50%;
+    height: 100%;
+    float: left;
+    text-align: center;
+    font-size: 1.3em;
+  }
+}

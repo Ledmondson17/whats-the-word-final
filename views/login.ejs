@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="login.css">
+    <link href="https://fonts.googleapis.com/css?family=Fontdiner+Swanky" rel="stylesheet">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title></title>
+  </head>
+  <body>
+    <section class="mainContainer">
+      <section class="top">
+        <h1 class="header">What's</h1>
+        <p><h3>The</h3></p>
+        <p><h1>Word?</h1></p>
+      </section>
+      <section class="bottom">
+        <% if (message.length > 0) { %>
+        <div class="alert"><%= message %></div>
+        <% } %>
+        <section class="form">
+          <form class="login" action="/login" method="post">
+            <input type="text" name="username" value="" placeholder="Sign In">
+            <br>
+            <input type="password" name="password" value="" placeholder="Password">
+            <br>
+            <input type="submit" name="" value="Submit">
+          </form>
+        </section>
+        <a href="/signup"><small>Don't have an account?</small></a>
+      </section>
+    </section>
+  </body>
+</html>

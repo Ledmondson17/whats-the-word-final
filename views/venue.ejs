@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="venue.css">
+  <link href="https://fonts.googleapis.com/css?family=Fontdiner+Swanky" rel="stylesheet">
+  <link rel="stylesheet" rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title></title>
+</head>
+<body>
+  <header>
+    <label id="menu" for="toggle">&#9776;</label>
+    <section class="search-box">
+      <input class="search-txt" type="text" placeholder="search" name="" value="">
+      <a class="search-btn" href="#"><i class="fas fa-search"></i></a>
+    </section>
+  </header>
+  <section class="main">
+
+    <section class="mainContainer">
+      <h1> <%= specificVenue.venue.name%> </h1>
+      <section class="picture">
+        <img src="<%= specificVenue.venue.bestPhoto.prefix + "300x300" + specificVenue.venue.bestPhoto.suffix %>" alt="">
+      </section>
+      <img src="" alt="">
+    </section>
+<a href="#"></a>
+    <section class="mainContainer2">
+      <ul>
+        <li> Address: <%= specificVenue.venue.location.address %>, <%= specificVenue.venue.location.city %>, <%= specificVenue.venue.location.state %>, <%= specificVenue.venue.location.postalCode %></li>
+        <li> Phone: <%= specificVenue.venue.contact.phone %> </li>
+
+        <% if(specificVenue.venue.hours){ %>
+          <li> Hours: <%= specificVenue.venue.hours.status %> </li>
+        <% } %>
+
+        <li> Twitter: @<%= specificVenue.venue.contact.twitter %>  </li>
+        <li><a href="<%= specificVenue.venue.url %>"><%= specificVenue.venue.url %></a></li>
+        <li> Venue Rating: <%= specificVenue.venue.rating %> </li>
+      </ul>
+    </section>
+
+    </section>
+    <script type="text/javascript"src="main.js"></script>
+  </body>
+  </html>

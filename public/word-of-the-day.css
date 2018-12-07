@@ -1,0 +1,61 @@
+*{
+  box-sizing: border-box;
+}
+html,body{
+  margin: 0;
+  padding: 0;
+  font-size: 15px;
+  background-color: black;
+  color: #af8300;
+}
+
+@media only screen and (max-width: 768px){
+  section{
+    width: 100%;
+  }
+
+  header{
+    width: 100%;
+    border: 1px solid black;
+    font-family: 'Permanent Marker', cursive;
+    text-align: center;
+  }
+  ul{
+    margin:0;
+    padding:0;
+  }
+  li{
+    list-style: none;
+    margin: 7px 0 0 0;
+  }
+  .mainContainer{
+    width: 100%;
+    height: 812px;
+    margin: auto;
+  }
+  .event{
+    width: 80%;
+    height: 80%;
+    margin-left: 36px;
+    margin-top: 30px;
+  }
+  .description{
+    width: 100%;
+    height: 50%;
+  }
+  .mainContainer2{
+    width: 100%;
+    height: 50%;
+  }
+  .event{
+    background-image: url("https://moth.imgix.net/71463e54-d355-4404-f34cb451b326.png?dpr=2&w=400&fm=jpg&fit=crop&q=50");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  .category{
+    font-family: 'Fontdiner Swanky', cursive;
+  }
+  .value{
+    color: white;
+  }
+}

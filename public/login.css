@@ -1,0 +1,56 @@
+*{
+  box-sizing: border-box;
+}
+html,body{
+  margin: 0;
+  padding: 0;
+  font-size: 15px;
+  font-family: 'Fontdiner Swanky', cursive;
+  background-color: black;
+  color: #af8300;
+}
+
+@media only screen and (max-width: 768px){
+  section{
+    width: 100%;
+  }
+  p{
+    margin:0;
+  }
+  input{
+    width: 200px;
+    height: 40px;
+    border: 1px solid black;
+    border-radius: 10px;
+  }
+  h1,h3{
+    margin:0;
+  }
+  .mainContainer{
+    height: 812px;
+  }
+  .top{
+    height: 50%;
+    text-align: center;
+    font-size: 4em;
+  }
+  .bottom{
+    height: 50%;
+    text-align: center;
+  }
+  .header{
+    margin-top: 70px;
+  }
+  .login{
+    text-align: left;
+    margin-left: 40%;
+  }
+  .form{
+    margin-top: 100px;
+    padding-right: 140px;
+  }
+  .alert{
+    color: red;
+    border: 3px solid #af8300;
+  }
+}

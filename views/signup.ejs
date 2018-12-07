@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="sign-up.css">
+    <link href="https://fonts.googleapis.com/css?family=Fontdiner+Swanky" rel="stylesheet">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title></title>
+  </head>
+  <body>
+    <section class="mainContainer">
+      <section class="header">
+        <h1>Sign Up</h1>
+      </section>
+      <section class="sign-in">
+        <section class="auth">
+          <span>Username</span>
+          <form class="" action="/signup" method="post">
+            <input type="text" name="username" value="">
+          </section>
+          <section class="auth">
+            <span>Email</span>
+            <input type="text" name="email" value="">
+          </section>
+          <section class="auth">
+            <span>Password</span>
+            <input type="password" name="password" value="">
+          </section>
+          <section class="auth">
+            <span>Confirm Password</span>
+            <input type="password" name="repeatPass" value="">
+          </section>
+          <% if (message.length > 0) { %>
+          <div class="alert"><%= message %></div>
+          <% } %>
+          <section>
+            <input type="submit" name="submit" value="submit" class="button">
+          </section>
+        </section>
+      </form>
+    </body>
+  </html>
