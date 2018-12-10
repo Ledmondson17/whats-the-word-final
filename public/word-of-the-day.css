@@ -5,8 +5,8 @@ html,body{
   margin: 0;
   padding: 0;
   font-size: 15px;
-  background-color: black;
-  color: #af8300;
+  background-color: #130f40;
+  color: white;
 }
 
 @media only screen and (max-width: 768px){
@@ -53,7 +53,7 @@ html,body{
     background-repeat: no-repeat;
   }
   .category{
-    font-family: 'Fontdiner Swanky', cursive;
+    font-family: 'Overlock SC', cursive;
   }
   .value{
     color: white;

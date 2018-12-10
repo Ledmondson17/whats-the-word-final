@@ -5,8 +5,9 @@ html,body{
   margin: 0;
   padding: 0;
   font-size: 15px;
-  background-color: black;
-  color: #af8300;
+  background-color: #130f40;
+  color: white;
+  font-family: 'Hammersmith One', sans-serif;
 }
 
 
@@ -20,9 +21,9 @@ html,body{
     height: 30px;
   }
   h1{
-    font-family: 'Fontdiner Swanky', cursive;
+    font-family: 'Overlock SC', cursive;
     text-align: center;
-    font-size: 30px;
+    font-size: 40px;
     margin: 0px;
   }
   li{
@@ -37,11 +38,21 @@ html,body{
     height: 100%;
   }
   ul{
-    padding-left: 0px;
+    padding-left: 15px;
+  }
+  a{
+    color: white;
   }
   img{
     width: 300px;
     height: 300px;
+    border: 2px solid white;
+  }
+  .property{
+    color: #af8300;
+  }
+  .picture{
+    padding-top: 15px;
   }
   .calendar{
     width: 100%;
@@ -84,7 +95,7 @@ html,body{
     margin: 0 0 0 36px;
   }
   .category{
-    font-family: 'Fontdiner Swanky', cursive;
+    font-family: 'Hammersmith One', sans-serif;
   }
   .value{
     color: white;

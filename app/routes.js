@@ -3,8 +3,8 @@ let foursquare =  require('./foursquare.js') // allows foursquare.js to pass its
   // normal routes =============================================================
 
   // show the home page (will also have our login links)
-  // app.get('/', function(req, res) {
-  //   res.render('index.ejs');
+  app.get('/index', function(req, res) {
+    res.render('index.ejs')});
   // });
 
   // PROFILE SECTION =========================

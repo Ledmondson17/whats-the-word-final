@@ -5,9 +5,9 @@ html,body{
   margin: 0;
   padding: 0;
   font-size: 15px;
-  background-color: black;
-  color: #af8300;
-  font-family: 'Fontdiner Swanky', cursive;
+  background-color: #130f40;
+  color: white;
+  font-family: 'Overlock SC', cursive;
   text-align: center;
 }
 
@@ -22,6 +22,9 @@ html,body{
   h1{
     font-size: 4em;
     padding-top: 100px;
+  }
+  .property{
+    color: #af8300;
   }
   .mainContainer{
     height: 812px;
@@ -38,7 +41,7 @@ html,body{
   .button{
     font-size: 15px;
     color: #af8300;
-    font-family: 'Fontdiner Swanky', cursive;
+    font-family: 'Hammersmith One', sans-serif;
     margin-top: 60px;
     border: 3px solid #af8300;
   }
