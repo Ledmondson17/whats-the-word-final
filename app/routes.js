@@ -1,43 +1,53 @@
 module.exports = function(app, passport, db) { // routes.js is just one big function
-let foursquare =  require('./foursquare.js') // allows foursquare.js to pass its information through here
+  let foursquare =  require('./foursquare.js') // allows foursquare.js to pass its information through here
+  var ObjectId = require('mongodb').ObjectID
   // normal routes =============================================================
 
   // show the home page (will also have our login links)
-  app.get('/index', function(req, res) {
+  app.get('/calendar', function(req, res) {
     res.render('index.ejs')});
-  // });
+    // });
 
-  // PROFILE SECTION =========================
-  app.get('/profile', isLoggedIn, function(req, res) {
-    db.collection('messages').find().toArray((err, result) => {
-      if (err) return console.log(err)
-      res.render('profile.ejs', {
-        user : req.user,
-        messages: result
+    // PROFILE SECTION =========================
+    app.get('/profile', isLoggedIn, function(req, res) {
+      db.collection('messages').find().toArray((err, result) => {
+        if (err) return console.log(err)
+        res.render('profile.ejs', {
+          user : req.user,
+          messages: result
+        })
+      })
+    });
+
+    // LOGOUT ==============================
+    app.get('/logout', function(req, res) {
+      req.logout();
+      res.redirect('/');
+    });
+
+    // ===========================================================================
+    // PROFILE PREFERENCE PAGE ===================================================
+    // ===========================================================================
+    app.post('/preferences', (req, res) => {
+
+      let venueTypes = []; // this if statement is checking to see if profile preferences have more than 1 option. if so it is array, if not we make it an array of 1 item
+      if (req.body.venue.constructor === Array){
+        venueTypes = req.body.venue;
+      }else{
+        venueTypes.push(req.body.venue)
+      }
+      console.log(req.user,req.user._id);
+      db.collection('users')
+      .findOneAndUpdate({"_id": ObjectId(req.user._id)},{local: req.user.local, venue: venueTypes, favoriteMusic: req.body.favoriteMusic, favSong: req.body.favSong, favVenue: req.body.favVenue}, (err, result) => {
+        if (err) return console.log(err)
+        console.log('saved to database')
+        res.redirect('/profile')
       })
     })
-  });
 
-  // LOGOUT ==============================
-  app.get('/logout', function(req, res) {
-    req.logout();
-    res.redirect('/');
-  });
-
-  // ===========================================================================
-  // PROFILE PREFERENCE PAGE ===================================================
-  // ===========================================================================
-  app.post('/preferences', (req, res) => {
-    db.collection('users').save({venue: req.body.venue, favoriteMusic: req.body.favoriteMusic, favSong: req.body.favSong, favVenue: req.body.favVenue, thumbDown: 0, thumbDown:0}, (err, result) => {
-      if (err) return console.log(err)
-      console.log('saved to database')
-      res.redirect('/profile')
-    })
-  })
-
-  app.put('/messages', (req, res) => {
-    db.collection('users')
-    .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, { //updating the "name" & "msg" fields with "req.body.___" in the document inside the collection
+    app.put('/messages', (req, res) => {
+      db.collection('users')
+      .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, { //updating the "name" & "msg" fields with "req.body.___" in the document inside the collection
       $set: {
         thumbUp:req.body.thumbUp + 1
       }
@@ -120,6 +130,8 @@ let foursquare =  require('./foursquare.js') // allows foursquare.js to pass its
   // HOMEPAGE ==================================================================
   // ===========================================================================
   app.get('/', function(req, res) {
+
+
     if (req.query.lat && req.query.lon) {
       console.log("query string: ",  req.query);
       // Access the session as req.session
@@ -141,62 +153,71 @@ let foursquare =  require('./foursquare.js') // allows foursquare.js to pass its
       // res.sendFile(__dirname + '/public/getlocation.html');
     }
     if(req.session.location){
+      let categories =[] // get categories from user. user venue array in preferences
       let specificVenues
-      foursquare.getVenues(req.session.location.lat,req.session.location.lon, function(allVenues) { // this function is going into foursquare.js and grabbing the "getVenues" function that is finding all the venues nearby
-        //console.log("data:", data);
-        for (let i = 0; i < allVenues.venues.length; i++) {
-          if (!allVenues.venues[i].location.address) {
-            allVenues.venues.splice(i,1)
-          }
+      var pref = req.user.toObject().venue[0]
+      foursquare.getVenues(req.session.location.lat, req.session.location.lon, pref, categories,function(allVenues){ // this function is going into foursquare.js and grabbing the "getVenues" function that is finding all the venues nearby
+      //console.log("data:", data);
+      for (let i = 0; i < allVenues.venues.length; i++) {
+        if (!allVenues.venues[i].location.address){
+          allVenues.venues.splice(i,1)
         }
-        console.log(allVenues.venues);
-        specificVenues = Object.values(allVenues.venues)
-        req.session.venues = specificVenues // req makes it so that this data can be pulled form any page
-        // foursquare.getSpecificVenue(allVenues.venues[0].id, function(specificVenue) { // this function grabs a specific venue using the data pulled from getvenues()
-        //   console.log("venue:", specificVenue.venue.name)
-        //   res.render('homepage.ejs', {specificVenue: specificVenue.venue}) // here we can do anything we want with that specific venue so we are rndering it to our screen
-        // });
-        res.render('homepage.ejs', {specificVenues: specificVenues, lat: req.session.location.lat, lon: req.session.location.lon}) // here we can do anything we want with that specific venue so we are rndering it to our screen
-      });
-      // res.render('homepage.ejs', {message: req.flash('signupMessage'),location: req.session.location});
-    }else{
-      res.render('geolocation.ejs')
-    }
-  });
-  // ===========================================================================
-  // PROFILE PREFERENCE PAGE ===================================================
-  // ===========================================================================
-    app.get('/preferences', function(req, res) {
-      res.render('pro-pref.ejs', { message: req.flash('signupMessage') });
-    });
-    app.post('/signup', passport.authenticate('local-signup', {
-      successRedirect : '/', // redirect to the secure profile section
-      failureRedirect : '/preferences', // redirect back to the signup page if there is an error
-      failureFlash : true // allow flash messages
-    }));
-    app.get("/apitest",function(req, res){
-      console.log(req.session.location);
-      res.send("hello");
+      }
+      //console.log(allVenues.venues);
+      specificVenues = Object.values(allVenues.venues)
+      req.session.venues = specificVenues // req makes it so that this data can be pulled form any page
+      // foursquare.getSpecificVenue(allVenues.venues[0].id, function(specificVenue) { // this function grabs a specific venue using the data pulled from getvenues()
+      // console.log("venue:", specificVenue.venue.name)
+      // res.render('homepage.ejs', {specificVenue: specificVenue.venue}) // here we can do anything we want with that specific venue so we are rndering it to our screen
+      res.render('homepage.ejs', {specificVenues: specificVenues, lat: req.session.location.lat, lon: req.session.location.lon}) // here we can do anything we want with that specific venue so we are rndering it to our screen
 
-  });
-  // ===========================================================================
-  // VENUE PAGE ================================================================
-  // ===========================================================================
-  app.get('/venue', function(req, res) {
-    const id = req.url.split("=") // making a variable that is spliutting a url by removing "=" which then turns url into an array with the id as the second elemnt
-    console.log(id);
-    foursquare.getSpecificVenue(id[1], function(specificVenue){
-      console.log('*********** specificVenue below ************')
-      console.log(specificVenue)
-      res.render('venue.ejs', { specificVenue: specificVenue, message: req.flash('signupMessage') });
-    }) // calling function from foursquare.js and we are passing in the variable and grabbingthe id by its indicie
-  });
-  // ===========================================================================
-  // MAP PAGE ================================================================
-  // ===========================================================================
-  app.get('/map', function(req, res) {
-    res.render('map.ejs', { venues: req.session.venues, lat: req.session.location.lat, lon: req.session.location.lon, message: req.flash('signupMessage') }); //setting these variableS inside this page holding these things
-  });
+    });
+
+  // res.render('homepage.ejs', {message: req.flash('signupMessage'),location: req.session.location});
+}else{
+  res.render('geolocation.ejs')
+}
+});
+// ===========================================================================
+// PROFILE PREFERENCE PAGE ===================================================
+// ===========================================================================
+app.get('/preferences', function(req, res) {
+  res.render('pro-pref.ejs', { message: req.flash('signupMessage') });
+});
+app.post('/signup', passport.authenticate('local-signup', {
+  successRedirect : '/', // redirect to the secure profile section
+  failureRedirect : '/preferences', // redirect back to the signup page if there is an error
+  failureFlash : true // allow flash messages
+}));
+app.get("/apitest",function(req, res){
+  console.log(req.session.location);
+  res.send("hello");
+
+});
+// ===========================================================================
+// VENUE PAGE ================================================================
+// ===========================================================================
+app.get('/venue', function(req, res) {
+  const id = req.url.split("=") // making a variable that is spliutting a url by removing "=" which then turns url into an array with the id as the second elemnt
+  console.log(id);
+  foursquare.getSpecificVenue(id[1], function(specificVenue){
+    res.render('venue.ejs', { specificVenue: specificVenue, message: req.flash('signupMessage') });
+  }) // calling function from foursquare.js and we are passing in the variable and grabbing the id by its indicie
+});
+// ===========================================================================
+// MAP PAGE ================================================================
+// ===========================================================================
+app.get('/map', function(req, res) {
+  res.render('map.ejs', { venues: req.session.venues, lat: req.session.location.lat, lon: req.session.location.lon, message: req.flash('signupMessage') }); //setting these variableS inside this page holding these things
+});
+// ===========================================================================
+// WORD OF THE DAY PAGE ======================================================
+// ===========================================================================
+app.get('/wordoftheday', function(req, res) {
+  res.render('word-of-the-day.ejs', { message: req.flash('signupMessage') });
+});
+
+
 };
 
 // route middleware to ensure user is logged in

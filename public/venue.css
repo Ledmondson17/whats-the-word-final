@@ -18,7 +18,7 @@ html,body{
 
   header{
     width: 100%;
-    height: 30px;
+    height: 50px;
   }
   h1{
     font-family: 'Overlock SC', cursive;
@@ -43,10 +43,14 @@ html,body{
   a{
     color: white;
   }
+  i{
+    color: #af8300;
+  }
   img{
     width: 300px;
     height: 300px;
     border: 2px solid white;
+    margin-top: 45px;
   }
   .property{
     color: #af8300;
@@ -102,6 +106,35 @@ html,body{
   }
   .fas-fa-search{
     icon
+  }
+  .menu-list li{
+    color: white;
+  }
+  .list{
+    float: left;
+    width: 25%;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+  }
+  .nav-bar{
+    position: sticky;
+    bottom: 0;
+    border: 1px solid white;
+    margin: 0;
+    padding: 0;
+    height: 50px;
+    background-color: white;
+  }
+  .nav-bar ul{
+    margin-bottom: -6px;
+  }
+  .main-menu .menu-list {
+    display: flex;
+    display: none;
+    background: #af8300;
+    position: absolute ;
+    z-index: 999;
   }
   #menu{
     float: left;

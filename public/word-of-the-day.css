@@ -16,7 +16,6 @@ html,body{
 
   header{
     width: 100%;
-    border: 1px solid black;
     font-family: 'Permanent Marker', cursive;
     text-align: center;
   }
@@ -24,9 +23,15 @@ html,body{
     margin:0;
     padding:0;
   }
+  h1{
+    font-family: 'Overlock SC', cursive;
+  }
   li{
     list-style: none;
     margin: 7px 0 0 0;
+  }
+  i{
+    color: #af8300;
   }
   .mainContainer{
     width: 100%;
@@ -47,6 +52,21 @@ html,body{
     width: 100%;
     height: 50%;
   }
+  .list{
+    float: left;
+    width: 33.3333%;
+    text-align: center;
+    padding-top: 10px;
+  }
+  .nav-bar{
+    position: sticky;
+    bottom: 0;
+    border: 1px solid white;
+    margin: 0;
+    padding: 0;
+    height: 50px;
+    background-color: white;
+  }
   .event{
     background-image: url("https://moth.imgix.net/71463e54-d355-4404-f34cb451b326.png?dpr=2&w=400&fm=jpg&fit=crop&q=50");
     background-size: cover;
@@ -57,5 +77,12 @@ html,body{
   }
   .value{
     color: white;
+  }
+  .description li{
+    margin: 25px 26px 5px 0px;
+    padding-left: 20px;
+  }
+  .nav-bar ul{
+    margin-bottom: -6px;
   }
 }

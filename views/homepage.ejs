@@ -11,15 +11,17 @@
 </head>
 <body>
   <header>
-    <label id="menu" for="toggle">&#9776;</label>
+    <!-- <label id="menu" for="toggle">&#9776;</label>
     <section class="search-box">
       <input class="search-txt" type="text" placeholder="search" name="" value="">
       <a class="search-btn" href="#"><i class="fas fa-search"></i></a>
+    </section> -->
+    <section class="title">
+      <h1>Venues Near You</h1>
     </section>
   </header>
   <section class="main">
-    <h1>Venues Near You</h1>
-    <section class="mainContainer">
+    <section class="mainContainer mapSticky">
       <script>
 
         function initMap() {
@@ -49,7 +51,6 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCes7Giv798r-pM373poz9fIIMmCEaTxrM&callback=initMap">
       </script>
 
-      <h3>Today's Events</h3>
     </section>
     <section class="mainContainer2">
       <ul>
@@ -58,6 +59,15 @@
         <% } %>
       </ul>
     </section>
+  </section>
+  <section class="nav-bar sticky">
+    <nav>
+      <ul>
+        <li class="list"><a href="/calendar"><i class="fas fa-calendar-alt fa-2x"></i></a></li>
+        <li class="list"><a href="/wordoftheday"><i class="fas fa-question fa-2x"></i></a></li>
+        <li class="list"><a href="/profile"><i class="fas fa-user-alt fa-2x"></i></a></li>
+      </ul>
+    </nav>
   </section>
   <script type="text/javascript"src="main.js"></script>
 </body>

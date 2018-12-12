@@ -10,16 +10,11 @@
 </head>
 <body>
   <header>
-    <label id="menu" for="toggle">&#9776;</label>
-    <section class="search-box">
-      <input class="search-txt" type="text" placeholder="search" name="" value="">
-      <a class="search-btn" href="#"><i class="fas fa-search"></i></a>
-    </section>
+    <h1> <%= specificVenue.venue.name%> </h1>
   </header>
   <section class="main">
 
     <section class="mainContainer">
-      <h1> <%= specificVenue.venue.name%> </h1>
       <section class="picture">
         <img src="<%= specificVenue.venue.bestPhoto.prefix + "300x300" + specificVenue.venue.bestPhoto.suffix %>" alt="">
       </section>
@@ -39,7 +34,16 @@
         <li><span class="property">Venue Rating:</span> <%= specificVenue.venue.rating %> </li>
       </ul>
     </section>
-
+    <section class="nav-bar sticky">
+      <nav>
+        <ul>
+          <li class="list"><a href="/"><i class="fas fa-globe fa-2x"></i></a></li>
+          <li class="list"><a href="/calendar"><i class="fas fa-calendar-alt fa-2x"></i></a></li>
+          <li class="list"><a href="/wordoftheday"><i class="fas fa-question fa-2x"></i></a></li>
+          <li class="list"><a href="/profile"><i class="fas fa-user-alt fa-2x"></i></a></li>
+        </ul>
+      </nav>
+    </section>
     </section>
     <script type="text/javascript"src="main.js"></script>
   </body>
