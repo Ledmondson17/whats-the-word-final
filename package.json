@@ -9,6 +9,7 @@
     "ejs": "^2.5.9",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
+    "express-sslify": "^1.2.0",
     "method-override": "~2.3.6",
     "mongoose": "^4.13.17",
     "morgan": "^1.9.1",
