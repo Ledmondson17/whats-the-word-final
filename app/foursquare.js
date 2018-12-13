@@ -44,7 +44,7 @@ function venueTypeToId(venueType){
     console.log("warning: unknown venue type: ", venueType)
   }
 }
-module.exports = {getVenues: getVenues, venueTypeToId: venueTypeToId, getSpecificVenue: getSpecificVenue};
+module.exports = {getVenues: getVenues, venueTypeToId: venueTypeToId, getSpecificVenue: getSpecificVenue}; // exporting these 3 functions
 // getVenues(42.36,-71.0545, function(venues) {
 //   console.log("the venues:", venues);
 // });
