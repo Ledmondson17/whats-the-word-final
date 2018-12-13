@@ -128,6 +128,7 @@ module.exports = function(app, passport, db) { // routes.js is just one big func
       req.session.venues = specificVenues // req makes it so that this data can be pulled form any page
       res.render('homepage.ejs', {specificVenues: specificVenues, lat: req.session.location.lat, lon: req.session.location.lon}) // here we can do anything we want with that specific venue so we are rndering it to our screen
     });
+    // hi
 }else{
   res.render('geolocation.ejs')
 }
