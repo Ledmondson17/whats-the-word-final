@@ -1,6 +1,6 @@
 module.exports = function(app, passport, db) { // routes.js is just one big function
   let foursquare =  require('./foursquare.js') // allows foursquare.js to pass its information through here
-  var ObjectId = require('mongodb').ObjectID
+  var ObjectId = require('mongodb').ObjectID // allows you to grab user id in each of mongo db docs
   // normal routes =============================================================
 
   // show the home page (will also have our login links)
@@ -45,28 +45,6 @@ module.exports = function(app, passport, db) { // routes.js is just one big func
       })
     })
 
-    app.put('/messages', (req, res) => {
-      db.collection('users')
-      .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, { //updating the "name" & "msg" fields with "req.body.___" in the document inside the collection
-      $set: {
-        thumbUp:req.body.thumbUp + 1
-      }
-    }, {
-      sort: {_id: -1},
-      upsert: true
-    }, (err, result) => {
-      if (err) return res.send(err)
-      res.send(result)
-    })
-  })
-
-  app.delete('/messages', (req, res) => {
-    db.collection('messages').findOneAndDelete({name: req.body.name, msg: req.body.msg}, (err, result) => {
-      if (err) return res.send(500, err)
-      res.send('Message deleted!')
-    })
-  })
-
   // ===========================================================================
   // AUTHENTICATE (FIRST LOGIN) ================================================
   // ===========================================================================
@@ -91,19 +69,6 @@ module.exports = function(app, passport, db) { // routes.js is just one big func
     res.render('signup.ejs', { message: req.flash('signupMessage') });
   });
 
-  // process the signup form
-  //   app.post('/signup',function(req, res){ //posting and saving these 4 properties to each document saved in db
-  //     db.collection('users').save({ //posting and saving these 4 properties to each document saved in db
-  //     name: req.body.name, //posting and saving these 4 properties to each document saved in db
-  //     email: req.body.email, //posting and saving these 4 properties to each document saved in db
-  //     pass: req.body.pass, //posting and saving these 4 properties to each document saved in db
-  //     username: req.body.username //posting and saving these 4 properties to each document saved in db
-  //   }, (err,result) => {
-  //     if (err) return console.log(err)
-  //     console.log('saved to database')
-  //     res.redirect('/')
-  //   })
-  // })
   app.post('/signup', passport.authenticate('local-signup', {
     successRedirect : '/preferences', // redirect to the secure profile section
     failureRedirect : '/signup', // redirect back to the signup page if there is an error
@@ -129,19 +94,16 @@ module.exports = function(app, passport, db) { // routes.js is just one big func
   // ===========================================================================
   // HOMEPAGE ==================================================================
   // ===========================================================================
-  app.get('/', function(req, res) {
+  app.get('/', isLoggedIn,function(req, res) {
 
-
-    if (req.query.lat && req.query.lon) {
-      console.log("query string: ",  req.query);
-      // Access the session as req.session
-      // put the lat and lon from the query string into the session
+    // Access the session as req.session
+    // put the lat and lon from the query string into the session
+    if (req.query.lat && req.query.lon) { // if lat & lon are in url query then pass them into session location
       req.session.location = {lat: req.query.lat, lon: req.query.lon};
     }else{
       console.log("no location");
     }
-    // if we have location in the session, render the showlocation.ejs page to sho
-    // the location in the browser
+    // if we have location in the session, render the homepage.ejs to show the location in the browser
     if (req.session.location) {
       console.log("show location: ",  req.session.location);
     } else {
@@ -157,23 +119,15 @@ module.exports = function(app, passport, db) { // routes.js is just one big func
       let specificVenues
       var pref = req.user.toObject().venue[0]
       foursquare.getVenues(req.session.location.lat, req.session.location.lon, pref, categories,function(allVenues){ // this function is going into foursquare.js and grabbing the "getVenues" function that is finding all the venues nearby
-      //console.log("data:", data);
       for (let i = 0; i < allVenues.venues.length; i++) {
-        if (!allVenues.venues[i].location.address){
+        if (!allVenues.venues[i].location.address){ // shuffling through all venues to get their address
           allVenues.venues.splice(i,1)
         }
       }
-      //console.log(allVenues.venues);
-      specificVenues = Object.values(allVenues.venues)
+      specificVenues = Object.values(allVenues.venues) // needed object.values to turn venues into actual object so we could take properties off of it
       req.session.venues = specificVenues // req makes it so that this data can be pulled form any page
-      // foursquare.getSpecificVenue(allVenues.venues[0].id, function(specificVenue) { // this function grabs a specific venue using the data pulled from getvenues()
-      // console.log("venue:", specificVenue.venue.name)
-      // res.render('homepage.ejs', {specificVenue: specificVenue.venue}) // here we can do anything we want with that specific venue so we are rndering it to our screen
       res.render('homepage.ejs', {specificVenues: specificVenues, lat: req.session.location.lat, lon: req.session.location.lon}) // here we can do anything we want with that specific venue so we are rndering it to our screen
-
     });
-
-  // res.render('homepage.ejs', {message: req.flash('signupMessage'),location: req.session.location});
 }else{
   res.render('geolocation.ejs')
 }
@@ -197,12 +151,13 @@ app.get("/apitest",function(req, res){
 // ===========================================================================
 // VENUE PAGE ================================================================
 // ===========================================================================
-app.get('/venue', function(req, res) {
+app.get('/venue', isLoggedIn,function(req, res) {
   const id = req.url.split("=") // making a variable that is spliutting a url by removing "=" which then turns url into an array with the id as the second elemnt
   console.log(id);
   foursquare.getSpecificVenue(id[1], function(specificVenue){
     res.render('venue.ejs', { specificVenue: specificVenue, message: req.flash('signupMessage') });
-  }) // calling function from foursquare.js and we are passing in the variable and grabbing the id by its indicie
+  })
+   // calling function from foursquare.js and we are passing in the variable and grabbing the id by its indicie
 });
 // ===========================================================================
 // MAP PAGE ================================================================
@@ -225,5 +180,5 @@ function isLoggedIn(req, res, next) {
   if (req.isAuthenticated())
   return next();
 
-  res.redirect('/');
+  res.redirect('/login');
 }

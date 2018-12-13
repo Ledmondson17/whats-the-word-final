@@ -38,7 +38,7 @@
             title: 'Hello World!'
           });
 
-          <% for( let i = 0; i < specificVenues.length; i++  ){%>
+          <% for( let i = 0; i < specificVenues.length; i++  ){%> <%# passing in venues here that map will now populate %>
             var marker<%=i%> = new google.maps.Marker({
             position: {lat: <%= specificVenues[i].location.lat %>, lng: <%= specificVenues[i].location.lng %> },
             map: map,
@@ -54,8 +54,8 @@
     </section>
     <section class="mainContainer2">
       <ul>
-        <% for (var i = 0; i < Math.min(specificVenues.length, 10); i++) { %>
-          <a href="/venue?id=<%= specificVenues[i].id %>"><li><%= specificVenues[i].name %></li></a>
+        <% for (var i = 0; i < Math.min(specificVenues.length, 10); i++) { %> <%# this ul populates list of vevues that you can click on and access %>
+          <a href="/venue?id=<%= specificVenues[i].id %>"><li><%= specificVenues[i].name %></li></a> <%# passing in specific venue ID %>
         <% } %>
       </ul>
     </section>

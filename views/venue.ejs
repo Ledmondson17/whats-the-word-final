@@ -16,33 +16,33 @@
 
     <section class="mainContainer">
       <section class="picture">
+        <% if(specificVenue.venue.bestPhoto){ %>
         <img src="<%= specificVenue.venue.bestPhoto.prefix + "300x300" + specificVenue.venue.bestPhoto.suffix %>" alt="">
+        <% } %>
       </section>
     </section>
 
     <section class="mainContainer2">
       <ul>
-        <li><span class="property">Address:</span> <%= specificVenue.venue.location.address %>, <%= specificVenue.venue.location.city %>, <%= specificVenue.venue.location.state %>, <%= specificVenue.venue.location.postalCode %></li>
-        <li><span class="property">Phone:</span> <%= specificVenue.venue.contact.phone %> </li>
-
+        <% if(!specificVenue.venue.address){ %>
+          <li><span class="property">Address:</span> <%= specificVenue.venue.location.address %>, <%= specificVenue.venue.location.city %>, <%= specificVenue.venue.location.state %>, <%= specificVenue.venue.location.postalCode %></li>
+        <% } %>
+        <% if(specificVenue.venue.contact.phone){ %>
+          <li><span class="property">Phone:</span> <%= specificVenue.venue.contact.phone %> </li>
+        <% } %>
         <% if(specificVenue.venue.hours){ %>
           <li> <span class="property">Hours:</span> <%= specificVenue.venue.hours.status %> </li>
         <% } %>
-
-        <li><span class="property">Twitter:</span> @<%= specificVenue.venue.contact.twitter %>  </li>
-        <li><span class="property">Website:</span> <a href="<%= specificVenue.venue.url %>"><%= specificVenue.venue.url %></a></li>
-        <li><span class="property">Venue Rating:</span> <%= specificVenue.venue.rating %> </li>
+        <% if(specificVenue.venue.contact.twitter){ %>
+          <li><span class="property">Twitter:</span> @<%= specificVenue.venue.contact.twitter %>  </li>
+        <% } %>
+        <% if(specificVenue.venue.url){ %>
+          <li><span class="property">Website:</span> <a href="<%= specificVenue.venue.url %>"><%= specificVenue.venue.url %></a></li>
+        <% } %>
+        <% if(specificVenue.venue.rating){ %>
+          <li><span class="property">Venue Rating:</span> <%= specificVenue.venue.rating %> </li>
+        <% } %>
       </ul>
-    </section>
-    <section class="nav-bar sticky">
-      <nav>
-        <ul>
-          <li class="list"><a href="/"><i class="fas fa-globe fa-2x"></i></a></li>
-          <li class="list"><a href="/calendar"><i class="fas fa-calendar-alt fa-2x"></i></a></li>
-          <li class="list"><a href="/wordoftheday"><i class="fas fa-question fa-2x"></i></a></li>
-          <li class="list"><a href="/profile"><i class="fas fa-user-alt fa-2x"></i></a></li>
-        </ul>
-      </nav>
     </section>
     </section>
     <script type="text/javascript"src="main.js"></script>

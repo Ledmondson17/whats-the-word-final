@@ -2,28 +2,16 @@ const fetch = require('node-fetch');
 
 
 
-function getVenues(lat,lng, pref, categories, callback){ // use categories to add id's to url
+function getVenues(lat,lng, pref, categories, callback){ // use pref to add venue category id's to url
 
     let prefOption = venueTypeToId(pref)
-  const url = `https://api.foursquare.com/v2/venues/search?client_id=OLTUY3MB0W3OZ3ED3L52OQPO4R4KIZYL4UL5NQKX1WZRF3DR&client_secret=XB01K0FKGGHPCADJWTA1E45KW0MRVPWVSZAE1OQRAETWAMHJ&ll=${lat},${lng}&v=20181128&categoryId=${prefOption}&radius=200`
+  const url = `https://api.foursquare.com/v2/venues/search?client_id=OLTUY3MB0W3OZ3ED3L52OQPO4R4KIZYL4UL5NQKX1WZRF3DR&client_secret=XB01K0FKGGHPCADJWTA1E45KW0MRVPWVSZAE1OQRAETWAMHJ&ll=${lat},${lng}&v=20181128&categoryId=${prefOption}&radius=500`
   //console.log(url);
   fetch(url).then(function(response) {
     return response.json();
   }).then(function(myJson) {
     callback(myJson.response);
   });
-  // function categories(venues){
-  //   let categories = venues.map(function(venue){
-  //     return venueTypeToId(venue)
-  //   })
-  //   return "categoryId=" + categories.join(",")
-  // }
-  function addCatsToUrl(categories) {
- let url = "https://api.com/getvenues?";
- categories.forEach(function(element) {
-   url = url + 'categoryId=' + venueTypeToId(element);;
-    })
-  }
 }
 
 function getSpecificVenue(venId, callback){
@@ -34,27 +22,6 @@ function getSpecificVenue(venId, callback){
   .then(function(myJson) {
     //console.log("getSpecificVenue: ", myJson.response);
     callback(myJson.response);
-  });
-}
-function getSpecificVenueHours(venId, callback){
-  fetch(`https://api.foursquare.com/v2/venues/${venId}/hours?client_id=OLTUY3MB0W3OZ3ED3L52OQPO4R4KIZYL4UL5NQKX1WZRF3DR&client_secret=XB01K0FKGGHPCADJWTA1E45KW0MRVPWVSZAE1OQRAETWAMHJ&v=20181128`)
-  .then(function(response) {
-    return response.json();
-  })
-  .then(function(myJson) {
-    //console.log("getSpecificVenueHours: ", myJson.response)
-    callback(myJson.response);
-  });
-}
-function getSpecificVenueCategories(venId, callback){
-  fetch(`https://api.foursquare.com/v2/venues/categories?client_id=OLTUY3MB0W3OZ3ED3L52OQPO4R4KIZYL4UL5NQKX1WZRF3DR&client_secret=XB01K0FKGGHPCADJWTA1E45KW0MRVPWVSZAE1OQRAETWAMHJ&v=20181128`)
-  .then(function(response) {
-    return response.json();
-  })
-  .then(function(myJson) {
-    // console.log("getSpecificVenueCategories: ", myJson.response)
-    //console.log(myJson);
-    callback(myJson);
   });
 }
 
